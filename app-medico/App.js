@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import Home from './home';
+import CadastroMedico from './cadastroMedico';
+import CadastroUsuario from './cadastroUsuario';
+import ListaMedicos from './listamedicos';
+import ListaUsuarios from './listaUsuarios';
+import { useEffect } from 'react';
+
+import { criarTabelaMedicos } from './database';
+
+
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>App Médico</Text>
-      <StatusBar style="auto" />
-    </View>
+
+
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="CadastroMedico" component={CadastroMedico} />
+        <Stack.Screen name="CadastroUsuario" component={CadastroUsuario} />
+        <Stack.Screen name="ListaMedicos" component={ListaMedicos} />
+        <Stack.Screen name="ListaUsuarios" component={ListaUsuarios} />
+      
+        
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
