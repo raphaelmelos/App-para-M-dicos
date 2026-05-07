@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { medicos as dadosIniciais } from '../data/medicos';
 import styles from '../estilo';
+import { listarMedicos } from '../database';
 
 export default function ListaMedicos({ navigation }) {
   const [lista, setLista] = useState(dadosIniciais);
@@ -10,6 +11,11 @@ export default function ListaMedicos({ navigation }) {
   function excluir(id) {
     const novaLista = lista.filter(item => item.id !== id);
     setLista(novaLista);
+  }
+  function carregarMedicos() {
+    const dados = listarMedicos();
+     console.log(dados);
+     setLista(dados);
   }
 
   return (

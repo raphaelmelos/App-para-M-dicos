@@ -7,7 +7,6 @@ import CadastroUsuario from './cadastroUsuario';
 import ListaMedicos from './listamedicos';
 import ListaUsuarios from './listaUsuarios';
 import { useEffect } from 'react';
-
 import { criarTabelaMedicos } from './database';
 
 
