@@ -2,6 +2,7 @@ import { View, Text, TextInput, Button } from 'react-native';
 import { useState, useEffect } from 'react';
 
 import styles from '../estilo';
+import { inserirUsuario, atualizarUsuario } from '../database';
 
 export default function CadastroUsuario({ route, navigation }) {
   const usuario = route?.params?.usuario;
@@ -21,11 +22,19 @@ export default function CadastroUsuario({ route, navigation }) {
   }, [usuario]);
 
   function salvar() {
-    if (usuario) {
-      console.log('Editando usuário:', { nome, cpf, rg, dataNascimento });
-    } else {
-      console.log('Novo usuário:', { nome, cpf, rg, dataNascimento });
-    }
+
+    const dados = {nome, cpf, rg, dataNascimento};
+
+     if (usuario) {
+    atualizarUsuario({
+      ...dados,
+      id: usuario.id
+    });
+  } else {
+    inserirUsuario(dados);
+  }
+
+    console.log(dados);    
 
     navigation.goBack();
   }
@@ -33,7 +42,7 @@ export default function CadastroUsuario({ route, navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        {usuario ? 'Editar Usuário' : 'Cadastro Usuário'}
+        {usuario ? 'Editar Usuário' : ' Cadastro Usuário'}
       </Text>
 
       <TextInput

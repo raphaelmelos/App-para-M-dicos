@@ -1,16 +1,34 @@
 import { View, Text, FlatList, Button } from 'react-native';
-import { useState } from 'react';
-
-import { usuarios as dadosIniciais } from '../data/usuarios';
+import { useEffect, useState } from 'react';
+import { listarUsuarios, deletarUsuario } from '../database';
 import styles from '../estilo';
 
 export default function ListaUsuarios({ navigation }) {
-  const [lista, setLista] = useState(dadosIniciais);
+  const [lista, setLista] = useState([]);
 
-  function excluir(id) {
-    const novaLista = lista.filter(item => item.id !== id);
-    setLista(novaLista);
+  function carregarUsuarios(){
+    const dados = listarUsuarios();
+
+     setLista(dados);
+     console.log(dados);
+
   }
+
+
+  useEffect(() => {
+    carregarUsuarios();
+  }, []);
+
+  function excluir(id){
+    console.log(id);
+
+    deletarUsuario(id);
+
+    carregarUsuarios();
+    
+  }
+
+
 
   return (
     <View style={styles.container}>
@@ -20,7 +38,7 @@ export default function ListaUsuarios({ navigation }) {
         data={lista}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={{ marginBottom: 15 }}>
+          <View style={{ marginBottom: 20 }}>
             <Text>Nome: {item.nome}</Text>
             <Text>CPF: {item.cpf}</Text>
             <Text>RG: {item.rg}</Text>

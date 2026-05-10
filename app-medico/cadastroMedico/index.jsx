@@ -1,8 +1,10 @@
 import { View, Text, TextInput, Button, Image } from 'react-native';
 import { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
+import {Picker} from '@react-native-picker/picker';
 
 import styles from '../estilo';
+import { inserirMedico } from '../database';
 
 export default function CadastroMedico({ route, navigation }) {
   const medico = route?.params?.medico;
@@ -47,9 +49,13 @@ export default function CadastroMedico({ route, navigation }) {
     } else {
       console.log('Novo médico:', dados);
     }
+    console.log(dados);
+    inserirMedico(dados);
+
 
     navigation.goBack();
   }
+  
 
   return (
     <View style={styles.container}>
@@ -58,18 +64,26 @@ export default function CadastroMedico({ route, navigation }) {
       </Text>
 
       <TextInput
-        placeholder="Nome do médico"
+        placeholder="Nome"
         style={styles.input}
         value={nome}
         onChangeText={setNome}
-      />
+        />
 
-      <TextInput
-        placeholder="Especialidade"
+      <Picker
+        selectedValue={especialidade}
+        onValueChange={(itemValue) => setEspecialidade(itemValue)}
         style={styles.input}
-        value={especialidade}
-        onChangeText={setEspecialidade}
-      />
+      >
+        <Picker.Item label="Selecione uma especialidade" value="" />
+        <Picker.Item label="Cardiologia" value="Cardiologia" />
+        <Picker.Item label="Dermatologia" value="Dermatologia" />
+        <Picker.Item label="Pediatria" value="Pediatia" />
+        <Picker.Item label="Ortopedia" value="Ortopedia" />
+    
+
+      </Picker>
+     
 
       <TextInput
         placeholder="CRM"

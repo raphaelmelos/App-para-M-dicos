@@ -7,13 +7,18 @@ import CadastroUsuario from './cadastroUsuario';
 import ListaMedicos from './listamedicos';
 import ListaUsuarios from './listaUsuarios';
 import { useEffect } from 'react';
-import { criarTabelaMedicos } from './database';
+import { criarTabelaMedicos, criarTabelaUsuarios } from './database';
 
 
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  useEffect(() => {
+      criarTabelaMedicos();
+      criarTabelaUsuarios();
+  }, []);
+
   return (
 
 

@@ -1,36 +1,84 @@
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabaseSync('app.db');
+const db = SQLite.openDatabaseSync('apps.db');
+//const db = SQLite.openDatabaseSync('app.db');
 
 export function criarTabelaMedicos() {
   db.execSync(`
     CREATE TABLE IF NOT EXISTS medicos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome TEXT,
+      nome TEXT not null,
       especialidade TEXT,
       crm TEXT,
       foto TEXT
+      );
+      `
+  );
+}
+
+export function criarTabelaUsuarios(){
+    db.execSync(`  
+    CREATE TABLE IF NOT EXISTS usuarios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT,
+    cpf TEXT,
+    rg TEXT, 
+    dataNascimento TEXT
     );
-  `);
+    `
+    );
+    console.log(criarTabelaUsuarios);
+
 }
 
 export function inserirMedico(medico) {
-  db.runSync(
+  
+  const result = db.runSync(
+  
     `INSERT INTO medicos (nome, especialidade, crm, foto)
      VALUES (?, ?, ?, ?)`,
     [medico.nome, medico.especialidade, medico.crm, medico.foto]
   );
+
+  console.log(result);
 }
+
+export function inserirUsuario(usuario) {
+  
+  const result = db.runSync(
+  
+    `INSERT INTO usuarios (nome, cpf, rg, dataNascimento)
+     VALUES (?, ?, ?, ?)`,
+    [usuario.nome, usuario.cpf, usuario.rg, usuario.dataNascimento]
+  );
+  
+  console.log(result);
+
+}
+ 
 
 export function listarMedicos() {
   return db.getAllSync(
-    `SELECT id, nome, especialidade, crm, foto FROM medicos`
+    `SELECT * FROM medicos`
+  );
+}
+
+export function listarUsuarios(){
+  return db.getAllSync(
+    `SELECT * FROM usuarios`
   );
 }
 
 export function deletarMedico(id) {
   db.runSync(
     `DELETE FROM medicos WHERE id = ?`,
+    [id]
+  );
+}
+
+export function deletarUsuario(id) {
+  db.runSync(
+    `DELETE FROM usuarios WHERE id = ?`,
     [id]
   );
 }
@@ -46,6 +94,21 @@ export function atualizarMedico(medico) {
       medico.crm,
       medico.foto,
       medico.id
+    ]
+  );
+}
+
+export function atualizarUsuario(usuario) {
+  db.runSync(
+    `UPDATE usuarios
+     SET nome = ?, cpf = ?, rg = ?, dataNascimento = ?
+     WHERE id = ?`,
+    [
+      usuario.nome,
+      usuario.cpf,
+      usuario.rg,
+      usuario.dataNascimento,
+      usuario.id
     ]
   );
 }

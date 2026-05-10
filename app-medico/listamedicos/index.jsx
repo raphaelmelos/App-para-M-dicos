@@ -1,22 +1,34 @@
 import { View, Text, FlatList, Button, Image } from 'react-native';
-import { useState } from 'react';
-
-import { medicos as dadosIniciais } from '../data/medicos';
+import { useEffect, useState } from 'react';
 import styles from '../estilo';
-import { listarMedicos } from '../database';
+import {  listarMedicos,  deletarMedico} from '../database';
+
 
 export default function ListaMedicos({ navigation }) {
-  const [lista, setLista] = useState(dadosIniciais);
+  const [lista, setLista] = useState([]);
+
+  function carregarmedicos(){
+    const dados = listarMedicos();
+    console.log(dados);
+
+    setLista(dados);
+  }
+
+  useEffect(() => {
+    carregarmedicos();
+  }, []);
 
   function excluir(id) {
-    const novaLista = lista.filter(item => item.id !== id);
-    setLista(novaLista);
+    console.log(id);
+
+
+    deletarMedico(id);
+    
+    carregarmedicos();
+
+
   }
-  function carregarMedicos() {
-    const dados = listarMedicos();
-     console.log(dados);
-     setLista(dados);
-  }
+  
 
   return (
     <View style={styles.container}>
@@ -26,12 +38,12 @@ export default function ListaMedicos({ navigation }) {
         data={lista}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={{ marginBottom: 15 }}>
+          <View style={{ marginBottom: 20 }}>
             
             {item.foto && (
               <Image
                 source={{ uri: item.foto }}
-                style={{ width: 80, height: 80, borderRadius: 10 }}
+                style={styles.fotoLista}
               />
             )}
 
