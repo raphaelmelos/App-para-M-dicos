@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button, Image } from 'react-native';
+import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import {Picker} from '@react-native-picker/picker';
@@ -101,7 +101,13 @@ export default function CadastroMedico({ route, navigation }) {
         />
       )}
 
-      <Button title="Salvar" onPress={salvar} />
+      <TouchableOpacity 
+            style={styles.botao} onPress={salvar} 
+      >
+        <Text style={styles.textoBotao}>Salvar</Text>
+
+      </TouchableOpacity>
+
     </View>
   );
 }

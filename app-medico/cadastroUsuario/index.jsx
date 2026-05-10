@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 
 import styles from '../estilo';
@@ -73,7 +73,11 @@ export default function CadastroUsuario({ route, navigation }) {
         onChangeText={setDataNascimento}
       />
 
-      <Button title="Salvar" onPress={salvar} />
+      <TouchableOpacity
+        style={styles.botao}
+        onPress={salvar} >
+        <Text  style={styles.textoBotao}>Salvar</Text>
+        </TouchableOpacity>
     </View>
   );
 }

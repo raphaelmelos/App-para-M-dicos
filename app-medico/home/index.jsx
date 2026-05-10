@@ -1,44 +1,41 @@
-import { View, Text, Button, StyleSheet } from 'react-native';
-
+import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import styles from '../estilo';
 export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tela Inicial</Text>
 
-      <Button 
-        title="Cadastrar Médico"
-        onPress={() => navigation.navigate('CadastroMedico')}
-      />
+      <TouchableOpacity  
+      style={styles.botaohome}
+        
+      onPress={() => navigation.navigate('CadastroMedico')}
+      >
+        <Text style={styles.textoBotao}>Cadastrar Medico</Text>  
 
-      <Button 
-        title="Cadastrar Usuario"
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={styles.botaohome}
         onPress={() => navigation.navigate('CadastroUsuario')}
+      >
+        <Text style={styles.textoBotao}>Cadastrar Usuario</Text>
+      </TouchableOpacity>
 
-    />
-
-      <Button
-        title="Listar Medicos"
+      <TouchableOpacity
+        style={styles.botaohome}
         onPress={() => navigation.navigate('ListaMedicos')}
-      />
-
-      <Button
-        title="Listar Usuarios"
-        onPress={() => navigation.navigate("ListaUsuarios")}
-      />
+      > 
+        <Text style={styles.textoBotao}>Listar Medicos</Text>
+      </TouchableOpacity>
+      
+      <TouchableOpacity
+        style={styles.botaohome}
+        onPress={() => navigation.navigate('ListaUsuarios')}
+      >
+        <Text style={styles.textoBotao}>Listar Usuarios</Text>
+      </TouchableOpacity>
+   
+      
     </View>
 
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 10
-  },
-  title: {
-    fontSize: 22,
-    marginBottom: 20
-  }
-});
+};

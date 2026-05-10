@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Button } from 'react-native';
+import { View, Text, FlatList, Button, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
 import { listarUsuarios, deletarUsuario } from '../database';
 import styles from '../estilo';
@@ -51,10 +51,12 @@ export default function ListaUsuarios({ navigation }) {
               }
             />
 
-            <Button
-              title="Excluir"
+            <TouchableOpacity
+              style={styles.botaodel}
               onPress={() => excluir(item.id)}
-            />
+            >
+              <Text style={styles.textoBotao}>Excluir</Text>
+             </TouchableOpacity> 
           </View>
         )}
       />

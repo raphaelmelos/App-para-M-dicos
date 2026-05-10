@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Button, Image } from 'react-native';
+import { View, Text, FlatList, Button, Image, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
 import styles from '../estilo';
 import {  listarMedicos,  deletarMedico} from '../database';
@@ -58,10 +58,12 @@ export default function ListaMedicos({ navigation }) {
               }
             />
 
-            <Button
-              title="Excluir"
+            <TouchableOpacity
+              style={styles.botaodel}
               onPress={() => excluir(item.id)}
-            />
+            >
+              <Text style={styles.textoBotao}>Excluir</Text>
+             </TouchableOpacity>
           </View>
         )}
       />
